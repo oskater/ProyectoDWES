@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 // Borrar DELETE
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $codigo = $_GET['sr_cod'];
-    $res = $perroRecibeSer->deleteRegistro($sr_cod);
+    $res = $perroRecibeSer->deleteRegistro($codigo);
     echo json_encode($res);
     exit();
 }

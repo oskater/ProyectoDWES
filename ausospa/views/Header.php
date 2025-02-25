@@ -7,7 +7,7 @@
     <title>Login | SpaRibera</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./../resources/css/style.css">
+    <link rel="stylesheet" href="./resources/css/style.css">
 </head>
 
 <body>
@@ -30,3 +30,4 @@
             Cerrar Sesión
         </a>
     </header>
+    <main>

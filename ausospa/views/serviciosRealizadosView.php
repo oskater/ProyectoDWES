@@ -1,9 +1,42 @@
+
+
 <?php
 class ServiciosRealizadosView
 {
-    public function listarServiciosRealizados()
+    public function listarServiciosRealizados($todosLosServicios)
     {
-        echo "Odio php";
+        echo "
+        <p class='cabecera'> Todos los servicios realizados </p>
+        <table>
+        <tr>
+            <th>sr_cod</th>
+            <th>cod_servicio</th>
+            <th>ID_Perro</th>
+            <th>Fecha</th>
+            <th>Incidencias</th>
+            <th>Precio_final</th>
+            <th>Dni</th>
+            <th></th>
+        </tr>";
+
+        foreach ($todosLosServicios as $servicio) {
+            echo "<tr>";
+            echo "<td>" . $servicio['sr_cod'] . "</td>";
+            echo "<td>" . $servicio['cod_servicio'] . "</td>";
+            echo "<td>" . $servicio['ID_Perro'] . "</td>";
+            echo "<td>" . $servicio['Fecha'] . "</td>";
+            echo "<td>" . $servicio['Incidencias'] . "</td>";
+            echo "<td>" . $servicio['Precio_final'] . " €</td>";
+            echo "<td>" . $servicio['Dni'] . "</td>";
+            // echo "<td><a href='./dashboard.php?controller=PerroRecibeSer&action=modal_eliminar'>Eliminar</a></td>";
+            echo '<td><form action="./dashboard.php?controller=PerroRecibeSer&action=modal_eliminar" method="POST">
+                    <button name="sr_cod" value='. $servicio['sr_cod'] . '>Eliminar</button>
+                </form></td>';
+            echo "</tr>";
+
+        }
+
+        echo "</table>";
     }
 
     public function formInsertarServicioRealizado()
@@ -36,5 +69,25 @@ class ServiciosRealizadosView
         //         <button class="w-[150px] h-[50px] mx-auto shadow-lg rounded-lg hover:bg-gray-100" type="submit">Añadir</button>
         //     </form>
         // </main>
+    }
+    
+    public function modal_eliminar()
+    {
+        echo '<div class="modal">
+                <div class="modal__container">
+
+                    <h2>¿Seguro que deseas eliminar?</h2>
+                    <h3>Esta accion es irreversible</h3>
+                    <div class="buttons">
+                        <a href="./dashboard.php?controller=PerroRecibeSer&action=listar"><button> Cancelar </button></a>
+                        
+                        <form action="./dashboard.php?controller=PerroRecibeSer&action=eliminar" method="POST">
+                        <button name="sr_cod" value='. $_POST['sr_cod'] . ' class="aceptar">Eliminar</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>';
+
     }
 }

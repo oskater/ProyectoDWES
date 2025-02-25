@@ -29,8 +29,8 @@ class ServicioController{
     }
 
     public function listar(){
-        
-        $this->servicioView->listarServicios();
+        $todosLosServicios = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/servicios/index.php"), true);
+        $this->servicioView->listarServicios($todosLosServicios);
     }
     public function insertar(){
         $this->servicioView->formInsertarServicio();

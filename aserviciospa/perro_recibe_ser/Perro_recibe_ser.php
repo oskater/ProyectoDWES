@@ -1,5 +1,3 @@
-<!-- Arreglar -->
-
 <?php
 class PerroRecibeSer extends Basedatos
 {
@@ -10,7 +8,7 @@ class PerroRecibeSer extends Basedatos
     public function __construct()
     {
 
-        $this->table = "perro_recibe_servicio";
+        $this->table = "perro_recibe_ser";
         $this->conexion = $this->getConexion();
     }
 
