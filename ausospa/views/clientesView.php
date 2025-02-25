@@ -1,7 +1,10 @@
 <?php
 class ClienteView
 {
-    //
+    public function listarClientes()
+    {
+        echo "Odio php";
+    }
 
     public function formInsertarCliente()
     {

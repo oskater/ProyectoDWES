@@ -1,21 +1,4 @@
 <?php
-
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     $email = $_POST['email'] ?? '';
-//     $password = $_POST['password'] ?? '';
-
-//     // $empleadoController=new EmpleadoController();
-
-//     // If login() => Header("Location: ./dashboard.php")
-    
-//     // PRUEBA DE CREDENCIALES
-//     if ($email === "admin@example.com" && $password === "1234") {
-//         echo "<script>alert('Inicio de sesión exitoso');</script>";
-//         header("Location: ./ausospa/dashboard.php");
-//     } else {
-//         echo "<script>alert('Credenciales incorrectas');</script>";
-//     }
-// }
 ?>
 
 <!DOCTYPE html>

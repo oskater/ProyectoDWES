@@ -11,18 +11,18 @@ if(isset($_GET['controller'])){
             $clienteController = new ClienteController();
             $clienteController->comprobarAction();
         break;
-        // case 'Perro':
-        //     $perroController = new PerroController();
-        //     $perroController->comprobarAction();
-        // break;
-        // case 'Servicio':
-        //     $servicioController = new ServicioController();
-        //     $servicioController->comprobarAction();
-        // break;
-        // case 'PerroRecibeSer':
-        //     $perroRecibeSerController = new PerroRecibeSerController();
-        //     $perroRecibeSerController->comprobarAction();
-        // break;
+        case 'Perro':
+            $perroController = new PerroController();
+            $perroController->comprobarAction();
+        break;
+        case 'Servicio':
+            $servicioController = new ServicioController();
+            $servicioController->comprobarAction();
+        break;
+        case 'PerroRecibeSer':
+            $perroRecibeSerController = new ServiciosRealizadosController();
+            $perroRecibeSerController->comprobarAction();
+        break;
     }
 }
 

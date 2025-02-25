@@ -1,35 +1,41 @@
+
 <?php
+require_once __DIR__ . '/../views/serviciosView.php';
 
-class ServicioController
-{
+class ServicioController{
+    private $servicioView;    
 
-    private $model;
-    private $view;
 
-    public function __construct()
-    {
-        $this->model = new Servicio();
-        $this->view = new ServicioView();
+    public function __construct() {
+        $this->servicioView = new ServiciosView();
     }
 
-    // public function listarNav()
-    // {
-    //     $allVuelos = json_decode($this->model->getAllVuelos());
-    //     $this->view->mostrarNav($allVuelos);
-    // }
+    public function comprobarAction(){
+        if(isset($_GET['action'])){
+            $action = $_GET['action'];
+        
+            switch($action){
+                case 'listar':
+                    $this->listar();
+                break;
+                case 'insertar':
+                    $this->insertar();
+                break;
+                case 'eliminar':
+                    $this->eliminar();
+                break;
+            }
+        }
+    }
 
-    // public function listarAllVuelos()
-    // {
-    //     $this->view->mostrarVuelos(json_decode($this->service->getAllVuelos()));
-    // }
-
-    // public function listarVuelo()
-    // {
-    //     $this->view->mostrarVuelos(json_decode($this->service->getVuelo($_GET['identificador'])));
-    // }
-
-    // public function getVuelos()
-    // {
-    //     return json_decode($this->service->getAllVuelos());
-    // }
+    public function listar(){
+        
+        $this->servicioView->listarServicios();
+    }
+    public function insertar(){
+        $this->servicioView->formInsertarServicio();
+    }
+    public function eliminar(){
+        $this->servicioView->formEliminarServicio();
+    }
 }

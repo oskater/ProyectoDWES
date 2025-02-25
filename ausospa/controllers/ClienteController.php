@@ -1,9 +1,11 @@
 <?php
+require_once __DIR__ . '/../views/clientesView.php';
 
 class ClienteController{
+    private $clienteView;    
 
     public function __construct() {
-        
+        $this->clienteView = new ClienteView();
     }
 
     public function comprobarAction(){
@@ -25,13 +27,13 @@ class ClienteController{
     }
 
     public function listar(){
-        echo "Listar";
+        $this->clienteView->listarClientes();
     }
     public function insertar(){
-        echo "insertar";
+        $this->clienteView->formInsertarCliente();
     }
     public function eliminar(){
-        echo "eliminar";
+        $this->clienteView->formEliminarCliente();
     }
 }
 ?>
