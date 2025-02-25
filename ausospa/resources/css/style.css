@@ -1,0 +1,20 @@
+.bg__login{
+    background-image: url(../images/bg__login2.jpg);
+    
+    /* background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+.img__perro{
+    background-image: url(../images/img__perro__login.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* filter: brightness(80%); */
+}
+
+.color__login{
+    background-color: #413F40;
+}
