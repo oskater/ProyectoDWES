@@ -12,17 +12,19 @@
 
 <body>
     <!-- Header -->
-    <header class="flex items-center justify-between px-8 py-4 bg-blue-500 text-white shadow-md">
+    <header class="flex flex-wrap items-center justify-between px-8 py-4 bg-blue-500 text-white shadow-md">
         <!-- Logo o Nombre -->
         <h1 class="text-2xl font-bold">
             Spa<span class="text-gray-200">Ribera</span>
         </h1>
 
         <!-- Menú de navegación -->
-        <nav class="hidden md:flex space-x-6">
-            <a href="./indexView.php" class="hover:underline">Inicio</a>
-            <a href="#" class="hover:underline">Servicios</a>
-            <a href="#" class="hover:underline">Contacto</a>
+        <nav class="flex space-x-6">
+            <a href="./dashboard.php?controller=Cliente&action=listar" class="hover:underline">Clientes</a>
+            <a href="./dashboard.php?controller=Perro&action=listar" class="hover:underline">Perros</a>
+            <a href="./dashboard.php?controller=Servicio&action=listar" class="hover:underline">Servicios</a>
+            <a href="./dashboard.php?controller=PerroRecibeSer&action=listar" class="hover:underline">Servicios Realizados</a>
+            <a href="./dashboard.php?controller=Empleado&action=listar" class="hover:underline">Empleados</a>
         </nav>
 
         <!-- Botón de inicio de sesión -->

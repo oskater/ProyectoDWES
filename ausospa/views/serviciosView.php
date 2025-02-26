@@ -3,7 +3,9 @@ class ServiciosView
 {
     public function listarServicios($todosLosServicios)
     {
-        echo "<table>
+        
+        echo "<p class='cabecera'> Todos los servicios existentes </p>
+        <table class='my-16'>
                 <tr>
                     <th>Codigo</th>
                     <th>Nombre</th>
@@ -18,7 +20,10 @@ class ServiciosView
             echo "<td>" . $servicio['Nombre'] . "</td>";
             echo "<td>" . $servicio['Precio'] . " €</td>";
             echo "<td>" . $servicio['Descripcion'] . "</td>";
-            echo "<td><a href='./dashboard.php?controller=Servicio&action=modal_eliminar'>Eliminar</a></td>";
+            echo "<td>
+            <a class='border-2 border-green-500 hover:bg-green-500 p-2 rounded-sm' href='./dashboard.php?controller=Servicio&action=modal_eliminar'>Insertar</a>
+            <a class='border-2 border-red-500 hover:bg-red-500 p-2 rounded-sm' href='./dashboard.php?controller=Servicio&action=modal_eliminar'>Eliminar</a>
+            </td>";
             echo "</tr>";
 
         }
