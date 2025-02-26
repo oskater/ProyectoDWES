@@ -45,7 +45,6 @@ class Empleado extends Basedatos
 
     public function comprobarEmpleado($email, $password)
     {
-
         $sql = "SELECT * FROM $this->table WHERE Email = ?";
         $stmt = $this->conexion->prepare($sql);
         $stmt->execute([$email]);
