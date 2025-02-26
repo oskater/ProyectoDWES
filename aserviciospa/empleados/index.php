@@ -22,14 +22,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    
     if (isset($_GET['Email']) && isset($_GET['Password'])) {
         $res = $empleado->comprobarEmpleado($_GET['Email'], $_GET['Password']); // Orden corregido
         echo json_encode(["success" => $res]);
         exit();
-    } else {
+    } else if  ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $res = $empleado->getAll();
+        echo json_encode($res);
+        exit;
+    }else {
         echo json_encode(["error" => "Faltan datos"]);
         exit();
     }
+    
 }
 
 

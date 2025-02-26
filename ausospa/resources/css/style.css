@@ -92,3 +92,25 @@ td, th{
     color: green;
     text-align: center;
 }
+.mensaje_error{
+    width: 100%;
+    color: rgb(200, 2, 2);
+    text-align: center;
+    display: block;
+    margin: 30px 0;
+    font-size: 25px;
+}
+
+.filters{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+option {
+    color: black;
+}
+select{
+    border: 1px solid black;
+}

@@ -3,6 +3,7 @@ require_once __DIR__ . '/../controllers/ClienteController.php';
 require_once __DIR__ . '/../controllers/PerroController.php';
 require_once __DIR__ . '/../controllers/ServicioController.php';
 require_once __DIR__ . '/../controllers/PerroRecibeSerController.php';
+require_once __DIR__ . '/../controllers/EmpleadoController.php';
 
 if(isset($_GET['controller'])){
     $controller = $_GET['controller'];
@@ -22,6 +23,10 @@ if(isset($_GET['controller'])){
         case 'PerroRecibeSer':
             $perroRecibeSerController = new ServiciosRealizadosController();
             $perroRecibeSerController->comprobarAction();
+        break;
+        case 'Empleado':
+            $empleadoController = new EmpleadoController();
+            $empleadoController->comprobarAction();
         break;
     }
 }

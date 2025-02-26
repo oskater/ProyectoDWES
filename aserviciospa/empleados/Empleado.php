@@ -13,6 +13,19 @@ class Empleado extends Basedatos
         $this->conexion = $this->getConexion();
     }
 
+    public function getAll()
+    {
+        try {
+            $sql = "SELECT * FROM $this->table";
+            $statement = $this->conexion->query($sql);
+            $registros = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $statement = null;
+            return $registros ?: [];
+        } catch (PDOException $e) {
+            return "ERROR AL CARGAR.<br>" . $e->getMessage();
+        }
+    }
+
     // B4. Método para insertar un nuevo EMPLEADO
     public function insertEmpleado($data)
     {

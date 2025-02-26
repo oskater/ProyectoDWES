@@ -48,7 +48,7 @@ class PerroRecibeSer extends Basedatos
     public function getRegistrosByEmpleado($dni)
     {
         try {
-            $sql = "SELECT * FROM perro_recibe_ser WHERE Dni = ?";
+            $sql = "SELECT * FROM $this->table WHERE Dni = ?";
             $stmt = $this->conexion->prepare($sql);
             $stmt->bindParam(1, $dni, PDO::PARAM_STR);
             $stmt->execute();

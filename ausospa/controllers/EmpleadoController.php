@@ -27,8 +27,10 @@ class EmpleadoController{
     }
 
     public function listar(){
-        $this->empleadoView->listarEmpleados();
+        $empleados = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/empleados/index.php"), true);
+        $this->empleadoView->listarEmpleados($empleados);
     }
+
     public function insertar(){
         $this->empleadoView->formInsertarEmpleado();
     }

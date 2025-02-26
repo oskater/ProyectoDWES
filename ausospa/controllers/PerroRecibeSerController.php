@@ -29,6 +29,9 @@ class ServiciosRealizadosController
                 case 'modal_eliminar':
                     $this->modal_eliminar();
                     break;
+                case 'listarPorEmpleado':
+                    $this->listarPorEmpleado();
+                    break;
             }
         }
     }
@@ -37,15 +40,13 @@ class ServiciosRealizadosController
     {
         $todosLosEmpleados = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/empleados/index.php"), true);
         $todosLosServicios = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/perro_recibe_ser/index.php"), true);
-        // print_r($todosLosServicios);
         $this->serviciosRealizadosView->listarServiciosRealizados($todosLosServicios, $todosLosEmpleados);
     }
     public function listarPorEmpleado()
     {
         $Dni = $_POST['Dni'];
-        $todosLosEmpleados = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/empleados/index.php"), true);
         $todosLosServiciosDeUnEmpleado = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/perro_recibe_ser/index.php?dni=" . $Dni), true);
-        // print_r($todosLosServicios);
+        $todosLosEmpleados = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/empleados/index.php"), true);
         $this->serviciosRealizadosView->listarServiciosRealizadosPorEmpleado($todosLosServiciosDeUnEmpleado, $todosLosEmpleados, $Dni);
     }
     public function insertar()
@@ -82,8 +83,6 @@ class ServiciosRealizadosController
 
         // Cerrar la sesión cURL
         curl_close($ch);
-
-
     }
     public function eliminar_def()
     {
