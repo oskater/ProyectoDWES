@@ -20,6 +20,7 @@ class ServiciosRealizadosView
         echo "<button type='submit'>Enviar</button>";
         echo "</form>";
         echo "</div>";
+        if($todosLosServicios != []){
         echo "<table class='my-16'>";
         echo "
         <table class='my-16'>
@@ -51,6 +52,9 @@ class ServiciosRealizadosView
         }
 
         echo "</table>";
+    }else {
+        echo "<p class='mensaje_error'>No hay registros</p>";
+    }
     }
     public function listarServiciosRealizadosPorEmpleado($todosLosServiciosDeUnEmpleado, $empleados, $Dni)
     {

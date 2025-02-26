@@ -31,14 +31,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // se cargan toda la entrada que venga en php://input
     $post = json_decode(file_get_contents('php://input'), true);
 
+    print_r($post) ;
     // Extraemos los valores específicos del body del request
-    $codigo = isset($post['codigo']) ? $post['codigo'] : null;
-    $nombre = isset($post['nombre']) ? $post['nombre'] : null;
-    $descripcion = isset($post['descripcion']) ? $post['descripcion'] : null;
-    $precio = isset($post['precio']) ? $post['precio'] : null;
+    echo $tipoServicio = isset($post['tipoServicio']) ? $post['tipoServicio'] : null;
+    echo $nombre = isset($post['nombre']) ? $post['nombre'] : null;
+    echo $descripcion = isset($post['descripcion']) ? $post['descripcion'] : null;
+    echo $precio = isset($post['precio']) ? $post['precio'] : null;
+
 
     // Llamamos al método createServicio con los parámetros extraídos
-    $res = $servicio->createServicio($codigo, $nombre, $descripcion, $precio);
+    $res = $servicio->createServicio($tipoServicio, $nombre, $descripcion, $precio);
     $resul['resultado'] = $res;
     echo json_encode($resul);
     exit();
@@ -52,10 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $post = json_decode(file_get_contents('php://input'), true);
 
     // Extraemos los valores específicos del body del request
-    $codigo = isset($post['codigo']) ? $post['codigo'] : null;
-    $nombre = isset($post['nombre']) ? $post['nombre'] : null;
-    $descripcion = isset($post['descripcion']) ? $post['descripcion'] : null;
-    $precio = isset($post['precio']) ? $post['precio'] : null;
+    $codigo = isset($post['Codigo']) ? $post['Codigo'] : null;
+    $nombre = isset($post['Nombre']) ? $post['Nombre'] : null;
+    $descripcion = isset($post['Descripcion']) ? $post['Descripcion'] : null;
+    $precio = isset($post['Precio']) ? $post['Precio'] : null;
 
     // Llamamos al método createServicio con los parámetros extraídos
     $res = $servicio->updateServicio($codigo, $nombre, $descripcion, $precio);

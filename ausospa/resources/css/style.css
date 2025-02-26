@@ -114,3 +114,8 @@ option {
 select{
     border: 1px solid black;
 }
+
+input{
+    border: 1px solid black;
+    
+}

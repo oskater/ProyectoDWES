@@ -65,11 +65,11 @@ class Servicio extends Basedatos
     {
         try {
             if ($tipoServicio == "BELLEZA") {
-                $sql = "SELECT MAX(SUBSTR(codigo, 5)) AS SIGUIENTE FROM SERVICIOS WHERE SUBSTR(codigo, 1, 4) = 'SVBE'";
+                $sql = "SELECT MAX(SUBSTR(Codigo, 5)) + 1 AS SIGUIENTE FROM SERVICIOS WHERE SUBSTR(Codigo, 1, 4) = 'SVBE'";
             } else if ($tipoServicio == "NUTRICION") {
-                $sql = "SELECT MAX(SUBSTR(codigo, 6)) AS SIGUIENTE FROM SERVICIOS WHERE SUBSTR(codigo, 1, 5) = 'SVNUT'";
+                $sql = "SELECT MAX(SUBSTR(Codigo, 6)) + 1 AS SIGUIENTE FROM SERVICIOS WHERE SUBSTR(Codigo, 1, 5) = 'SVNUT'";
             } else {
-                return "Tipo de servicio no válido.";
+                return $_POST ;
             }
 
             // Preparar y ejecutar la consulta para obtener el siguiente número del código
@@ -78,16 +78,16 @@ class Servicio extends Basedatos
             $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
 
             // Si no hay códigos existentes, el siguiente será 1
-            $siguienteCodigo = $resultado['SIGUIENTE'] ? $resultado['SIGUIENTE'] + 1 : 1;
+            $siguienteCodigo = $resultado['SIGUIENTE'];
 
             // Construir el nuevo código
             if ($tipoServicio == "BELLEZA") {
-                $codigo = "SVBE" . str_pad($siguienteCodigo, 4, "0", STR_PAD_LEFT); // Asegurarse que el código tenga 4 dígitos
+                $codigo = "SVBE" . $siguienteCodigo; // Asegurarse que el código tenga 4 dígitos
             } elseif ($tipoServicio == "NUTRICION") {
-                $codigo = "SVNUT" . str_pad($siguienteCodigo, 4, "0", STR_PAD_LEFT); // Asegurarse que el código tenga 4 dígitos
+                $codigo = "SVNUT" . $siguienteCodigo; // Asegurarse que el código tenga 4 dígitos
             }
             
-            $sql = "INSERT INTO $this->table (CODIGO, NOMBRE, DESCRIPCION, PRECIO) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO $this->table (Codigo, Nombre, Descripcion, Precio) VALUES (?, ?, ?, ?)";
             $sentencia = $this->conexion->prepare($sql);
             $sentencia->bindParam(1, $codigo);
             $sentencia->bindParam(2, $nombre);
@@ -96,7 +96,7 @@ class Servicio extends Basedatos
             $sentencia->execute();
             return "Servicio codigo " . $codigo .  " creado exitosamente";
         } catch (PDOException $e) {
-            return "El servicio ya esta dado de alta o faltan datos";
+            return $e;
         }
     }
 
