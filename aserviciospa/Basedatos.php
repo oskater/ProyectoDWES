@@ -3,7 +3,7 @@
 abstract class Basedatos
 {
 
-    private $servername = "localhost:3306";
+    private $servername = "localhost:3307";
     private $database = "spa";
     private $username = "root";
     private $password = "";

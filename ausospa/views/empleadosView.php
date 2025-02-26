@@ -1,9 +1,33 @@
 <?php
 class EmpleadoView
 {
-    public function listarEmpleados()
+    public function listarEmpleados($empleados)
     {
-        echo "Listar empleados";
+        echo "
+        <p class='cabecera'> Empleados </p>
+        <table class='my-16'>
+        <tr>
+            <th>DNI</th>
+            <th>Email</th>
+            <th>Nombre</th>
+            <th>Primer Ape</th>
+            <th>Segundo Ape</th>
+            <th>Telefono</th>
+            <th>Rol</th>
+        </tr>";
+
+        foreach ($empleados as $empleado) {
+            echo "<tr>";
+            echo "<td>" . $empleado['Dni'] . "</td>";
+            echo "<td>" . $empleado['Email'] . "</td>";
+            echo "<td>" . $empleado['Nombre'] . "</td>";
+            echo "<td>" . $empleado['Apellido1'] . "</td>";
+            echo "<td>" . $empleado['Apellido2'] . "</td>";
+            echo "<td>" . $empleado['Tlfno'] . " </td>";
+            echo "<td>" . $empleado['Rol'] . "</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
     }
     
     public function formInsertarEmpleado()
