@@ -13,8 +13,8 @@ class WebController extends ControladorBase {
 
     public function insertar() {
         $dat = array();
-        $clientes = json_decode(file_get_contents("http://localhost/_servweb/aserviciomenus/clientes/"), true);
-        $menus = json_decode(file_get_contents("http://localhost/_servweb/aserviciomenus/menus/"), true);
+        $clientes = json_decode(file_get_contents("http://localhost:8081/_servweb/aserviciomenus/clientes/"), true);
+        $menus = json_decode(file_get_contents("http://localhost:8081/_servweb/aserviciomenus/menus/"), true);
         $this->view("insertar", array("clientes" => $clientes, "menus" => $menus));
     }
 
@@ -24,7 +24,7 @@ class WebController extends ControladorBase {
                     "idcliente" => $_POST['idcliente'],
                     "idmenu" => $_POST['idmenu'],
                     "fechapedido" => $_POST['fecha']));
-        $urlmiservicio = "http://localhost/_servweb/aserviciomenus/pedidosmenus/";
+        $urlmiservicio = "http://localhost:8081/_servweb/aserviciomenus/pedidosmenus/";
         $conexion = curl_init();
         curl_setopt($conexion, CURLOPT_URL, $urlmiservicio);
         //Cabecera, tipo de datos y longitud de envío
@@ -42,8 +42,8 @@ class WebController extends ControladorBase {
         curl_close($conexion);
         //Volver a la vista
 
-        $clientes = json_decode(file_get_contents("http://localhost/_servweb/aserviciomenus/clientes/"), true);
-        $menus = json_decode(file_get_contents("http://localhost/_servweb/aserviciomenus/menus/"), true);
+        $clientes = json_decode(file_get_contents("http://localhost:8081/_servweb/aserviciomenus/clientes/"), true);
+        $menus = json_decode(file_get_contents("http://localhost:8081/_servweb/aserviciomenus/menus/"), true);
 
         $this->view("insertar", array("clientes" => $clientes,
             "menus" => $menus, "mensaje" => $mensaje->resultado,
@@ -52,7 +52,7 @@ class WebController extends ControladorBase {
     }
 
     public function listar() {
-        $clientes = json_decode(file_get_contents("http://localhost/_servweb/aserviciomenus/clientes/"), true);
+        $clientes = json_decode(file_get_contents("http://localhost:8081/_servweb/aserviciomenus/clientes/"), true);
         $this->view("listarborrar", array("clientes" => $clientes));
     }
 
@@ -60,7 +60,7 @@ class WebController extends ControladorBase {
 
         $id = $_GET['num'];
         //Para quedarnos con el cliente
-        $urlmiservicio = "http://localhost/_servweb/aserviciomenus/pedidosmenus/?id=" . $_GET['num'];
+        $urlmiservicio = "http://localhost:8081/_servweb/aserviciomenus/pedidosmenus/?id=" . $_GET['num'];
         $pedido = json_decode(file_get_contents($urlmiservicio), true);
         $cli = $pedido['IDCLIENTE'];
 
@@ -73,17 +73,17 @@ class WebController extends ControladorBase {
 
         $mensaje = json_decode(curl_exec($conexion), false);
 
-        $pedidosclien = json_decode(file_get_contents("http://localhost/_servweb/aserviciomenus/pedidosmenus/?cli=" . $cli), true);
-        $clientes = json_decode(file_get_contents("http://localhost/_servweb/aserviciomenus/clientes/"), true);
+        $pedidosclien = json_decode(file_get_contents("http://localhost:8081/_servweb/aserviciomenus/pedidosmenus/?cli=" . $cli), true);
+        $clientes = json_decode(file_get_contents("http://localhost:8081/_servweb/aserviciomenus/clientes/"), true);
         $this->view("listarborrar", array('pedidosclien' => $pedidosclien,
             "clientes" => $clientes, 'idcliente' => $cli, "mensaje" => $mensaje->resultado));
     }
 
     public function listarcliente() {
         $cli = $_POST['idcliente'];
-        $pedidosclien = json_decode(file_get_contents("http://localhost/_servweb/aserviciomenus/pedidosmenus/?cli=" . $cli), true);
+        $pedidosclien = json_decode(file_get_contents("http://localhost:8081/_servweb/aserviciomenus/pedidosmenus/?cli=" . $cli), true);
 
-        $clientes = json_decode(file_get_contents("http://localhost/_servweb/aserviciomenus/clientes/"), true);
+        $clientes = json_decode(file_get_contents("http://localhost:8081/_servweb/aserviciomenus/clientes/"), true);
         $this->view("listarborrar", array('pedidosclien' => $pedidosclien,
             "clientes" => $clientes, 'idcliente' => $cli));
     }

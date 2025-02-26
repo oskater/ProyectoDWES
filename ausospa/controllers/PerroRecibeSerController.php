@@ -35,7 +35,7 @@ class ServiciosRealizadosController
 
     public function listar()
     {
-        $todosLosServicios = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/perro_recibe_ser/index.php"), true);
+        $todosLosServicios = json_decode(file_get_contents("http://localhost:8081/ProyectoDWES/aserviciospa/perro_recibe_ser/index.php"), true);
         // print_r($todosLosServicios);
         $this->serviciosRealizadosView->listarServiciosRealizados($todosLosServicios);
     }

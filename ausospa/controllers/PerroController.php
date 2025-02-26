@@ -29,7 +29,7 @@ class PerroController{
     }
 
     public function listar(){
-        $PerroSelecionado = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/perros/index.php"), true);
+        $PerroSelecionado = json_decode(file_get_contents("http://localhost:8081/ProyectoDWES/aserviciospa/perros/index.php"), true);
         print_r($PerroSelecionado);
         $this->perroView->listarPerros();
     }

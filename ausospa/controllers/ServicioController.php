@@ -29,7 +29,7 @@ class ServicioController{
     }
 
     public function listar(){
-        $todosLosServicios = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/servicios/index.php"), true);
+        $todosLosServicios = json_decode(file_get_contents("http://localhost:8081/ProyectoDWES/aserviciospa/servicios/index.php"), true);
         $this->servicioView->listarServicios($todosLosServicios);
     }
     public function insertar(){

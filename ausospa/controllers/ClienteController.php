@@ -37,7 +37,7 @@ class ClienteController
 
     public function listar()
     {
-        $clientes = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/clientes/index.php"), true);
+        $clientes = json_decode(file_get_contents("http://localhost:8081/ProyectoDWES/aserviciospa/clientes/index.php"), true);
         $this->clienteView->listarClientes($clientes);
     }
     public function insertar()

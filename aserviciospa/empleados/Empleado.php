@@ -26,31 +26,60 @@ class Empleado extends Basedatos
         }
     }
 
-    // B4. Método para insertar un nuevo EMPLEADO
+    //B1. Método para insertar un nuevo CLIENTE
     public function insertEmpleado($data)
     {
         try {
             // Verificar si el DNI ya está registrado
             $sql_check = "SELECT COUNT(*) FROM $this->table WHERE Dni = ?";
             $stmt_check = $this->conexion->prepare($sql_check);
-            $stmt_check->execute([$data['Dni']]);
+            $stmt_check->execute([$data['dni']]);
             if ($stmt_check->fetchColumn() > 0) {
-                return ["error" => "El Empleado ya está dado de alta"];
+                return ["error" => "El Empleado con DNI {$data['dni']} ya está dado de alta"];
             }
-            // Cifrar la contraseña
-            $data['Password'] = password_hash($data['Password'], PASSWORD_BCRYPT);
-            // Insertar el nuevo EMPLEADO
-            $sql = "INSERT INTO $this->table (Dni, Email, Password, Rol, Nombre, Apellido1, Apellido2, Calle, Numero, Cp, Poblacion, Provincia, Tlfno, Profesion) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            $statement = $this->conexion->prepare($sql);
-            // Mensajes de éxito o error
-            if ($statement->execute(array_values($data))) {
-                return ["success" => "Empleado DNI: {$data['Dni']} insertado correctamente"];
+
+            // Insertar el nuevo CLIENTE
+            $sql = "INSERT INTO $this->table (Dni, Nombre, Apellido1, Apellido2, Calle, Numero, CP, Poblacion, Provincia, Tlfno, Email, Password, Rol, Profesion)
+                VALUES (:dni, :nombre, :apellido1, :apellido2, :calle, :numero, :cp, :poblacion, :provincia, :tlfno, :email, :password, :rol, :profesion)";
+            $stmt = $this->conexion->prepare($sql);
+
+            // Asignar valores a los parámetros
+            $stmt->bindParam(":dni", $data["dni"], PDO::PARAM_STR);
+            $stmt->bindParam(":nombre", $data["nombre"], PDO::PARAM_STR);
+            $stmt->bindParam(":apellido1", $data["apellido1"], PDO::PARAM_STR);
+            $stmt->bindParam(":apellido2", $data["apellido2"], PDO::PARAM_STR);
+            $stmt->bindParam(":calle", $data["calle"], PDO::PARAM_STR);
+            $stmt->bindParam(":numero", $data["numero"], PDO::PARAM_STR);
+            $stmt->bindParam(":cp", $data["cp"], PDO::PARAM_STR);
+            $stmt->bindParam(":poblacion", $data["poblacion"], PDO::PARAM_STR);
+            $stmt->bindParam(":provincia", $data["provincia"], PDO::PARAM_STR);
+            $stmt->bindParam(":tlfno", $data["tlfno"], PDO::PARAM_STR);
+            $stmt->bindParam(":email", $data["email"], PDO::PARAM_STR);
+            $stmt->bindParam(":password", $data["password"], PDO::PARAM_STR);
+            $stmt->bindParam(":rol", $data["rol"], PDO::PARAM_STR);
+            $stmt->bindParam(":profesion", $data["profesion"], PDO::PARAM_STR);
+
+            // Ejecutar consulta sin parámetros adicionales
+            if ($stmt->execute()) {
+                return ["success" => "Empleado DNI: {$data['dni']} insertado correctamente"];
             } else {
                 return ["error" => "Error al insertar el empleado"];
             }
         } catch (PDOException $e) {
-            return ["error" => $e->getMessage()];
+            return ["error" => "Error en la base de datos: " . $e->getMessage()];
+        }
+    }
+
+    public function deleteEmpleado($dni)
+    {
+        try {
+            $sql = "DELETE FROM $this->table WHERE dni=?";
+            $sentencia = $this->conexion->prepare($sql);
+            $sentencia->bindParam(1, $dni);
+            $sentencia->execute();
+            return "Registro eliminado exitosamente";
+        } catch (PDOException $e) {
+            return "ERROR AL ELIMINAR EL REGISTRO.<br>" . $e->getMessage();
         }
     }
 
