@@ -45,9 +45,14 @@ class ServiciosRealizadosController
     public function listarPorEmpleado()
     {
         $Dni = $_POST['Dni'];
-        $todosLosServiciosDeUnEmpleado = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/perro_recibe_ser/index.php?dni=" . $Dni), true);
         $todosLosEmpleados = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/empleados/index.php"), true);
-        $this->serviciosRealizadosView->listarServiciosRealizadosPorEmpleado($todosLosServiciosDeUnEmpleado, $todosLosEmpleados, $Dni);
+        if($Dni != ""){
+            $todosLosServiciosDeUnEmpleado = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/perro_recibe_ser/index.php?dni=" . $Dni), true);
+            $this->serviciosRealizadosView->listarServiciosRealizadosPorEmpleado($todosLosServiciosDeUnEmpleado, $todosLosEmpleados, $Dni);
+        }else {
+            $todosLosServicios = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/perro_recibe_ser/index.php"), true);
+            $this->serviciosRealizadosView->listarServiciosRealizados($todosLosServicios, $todosLosEmpleados);
+        }
     }
     public function insertar()
     {
@@ -83,10 +88,6 @@ class ServiciosRealizadosController
 
         // Cerrar la sesión cURL
         curl_close($ch);
-    }
-    public function eliminar_def()
-    {
-        $this->serviciosRealizadosView->formEliminarServicioRealizado();
     }
     public function modal_eliminar()
     {

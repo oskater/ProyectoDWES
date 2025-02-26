@@ -20,9 +20,9 @@ class ServiciosView
             echo "<td>" . $servicio['Nombre'] . "</td>";
             echo "<td>" . $servicio['Precio'] . " €</td>";
             echo "<td>" . $servicio['Descripcion'] . "</td>";
-            echo "<td>
-            <a class='border-2 border-red-500 hover:bg-red-500 p-2 rounded-sm' href='./dashboard.php?controller=Servicio&action=modal_eliminar'>Eliminar</a>
-            </td>";
+            echo '<td><form action="./dashboard.php?controller=Servicio&action=modal_eliminar" method="POST">
+                    <button class="border-2 border-red-500 hover:bg-red-500 p-2 rounded-sm" name="Codigo" value='. $servicio['Codigo'] . '>Eliminar</button>
+                </form></td>';
             echo "</tr>";
 
         }
@@ -63,11 +63,22 @@ class ServiciosView
         // </main>
     }
 
-    public function modalEliminar()
+    
+    public function modal_eliminar()
     {
         echo '<div class="modal">
                 <div class="modal__container">
-                    <p>Eliminar modal</p>
+
+                    <h2>¿Seguro que deseas eliminar?</h2>
+                    <h3>Esta accion es irreversible</h3>
+                    <div class="buttons">
+                        <a href="./dashboard.php?controller=Servicio&action=listar"><button> Cancelar </button></a>
+                        
+                        <form action="./dashboard.php?controller=Servicio&action=eliminar" method="POST">
+                        <button name="Codigo" value='. $_POST['Codigo'] . ' class="aceptar">Eliminar</button>
+                        </form>
+                    </div>
+
                 </div>
             </div>';
 
