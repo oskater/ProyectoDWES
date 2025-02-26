@@ -73,8 +73,6 @@ class ServiciosRealizadosController
 
         // Cerrar la sesión cURL
         curl_close($ch);
-
-
     }
     public function eliminar_def()
     {
