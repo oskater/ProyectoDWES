@@ -8,7 +8,7 @@ class PerroRecibeSer extends Basedatos
     public function __construct()
     {
 
-        $this->table = "perro_recibe_ser";
+        $this->table = "perro_recibe_servicio";
         $this->conexion = $this->getConexion();
     }
 

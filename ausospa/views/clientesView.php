@@ -14,7 +14,11 @@ class ClienteView
             <th>Apellido2</th>
             <th>Direccion</th>
             <th>Tlfno</th>
-            <th></th>
+            <th>
+                <form action='./dashboard.php?controller=Cliente&action=modal_insertar' method='POST'>
+                    <button class='border-2 border-green-500 hover:bg-green-500 p-2 rounded-sm'>Insertar</button>
+                </form>
+            </th>
         </tr>";
 
         foreach ($clientes as $cliente) {
@@ -26,9 +30,6 @@ class ClienteView
             echo "<td>" . $cliente['Direccion'] . "</td>";
             echo "<td>" . $cliente['Tlfno'] . "</td>";
             echo '<td>
-                    <form action="./dashboard.php?controller=Cliente&action=modal_insertar" method="POST">
-                    <button class="border-2 border-green-500 hover:bg-green-500 p-2 rounded-sm" name="Dni" value=' . $cliente['Dni'] . '>Insertar</button>
-                    </form>
                     <form action="./dashboard.php?controller=Cliente&action=modal_eliminar" method="POST">
                     <button class="border-2 border-red-500 hover:bg-red-500 p-2 rounded-sm" name="Dni" value=' . $cliente['Dni'] . '>Eliminar</button>
                     </form>

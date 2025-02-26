@@ -4,7 +4,10 @@ require_once('./Empleado.php');
 
 $empleado = new Empleado();
 
-@header("Content-type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: GET, POST, DELETE");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 
 // INSERTAR EMPLEADO (POST)
@@ -17,6 +20,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo json_encode($res);
     exit();
 }
+
+// if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['Email']) && isset($_GET['Password'])) {
+//         $res = $empleado->comprobarEmpleado($_GET['Email'], $_GET['Password']); // Orden corregido
+//         echo json_encode(["success" => $res]);
+//         exit();
+// } else {
+//     echo json_encode(["error" => "Faltan datos"]);
+//     exit();
+// }
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $res = $empleado->getAll();
+    echo json_encode($res);
+    exit;
+}
+
 
 // METODO NO PERMITIDO
 echo json_encode(["error" => "Método no permitido"]);

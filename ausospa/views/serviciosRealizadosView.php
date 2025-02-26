@@ -5,6 +5,7 @@ class ServiciosRealizadosView
 {
     public function listarServiciosRealizados($todosLosServicios)
     {
+        // print_r($todosLosServicios);
         echo "
         <p class='cabecera'> Todos los servicios realizados </p>
         <table class='my-16'>
@@ -16,22 +17,21 @@ class ServiciosRealizadosView
             <th>Incidencias</th>
             <th>Precio_final</th>
             <th>Dni</th>
-            <th></th>
+            <th><button class='border-2 border-green-500 hover:bg-green-500 p-2 rounded-sm' name='sr_cod'>Insertar</button></th>
         </tr>";
 
         foreach ($todosLosServicios as $servicio) {
             echo "<tr>";
-            echo "<td>" . $servicio['sr_cod'] . "</td>";
-            echo "<td>" . $servicio['cod_servicio'] . "</td>";
+            echo "<td>" . $servicio['Sr_Cod'] . "</td>";
+            echo "<td>" . $servicio['Cod_Servicio'] . "</td>";
             echo "<td>" . $servicio['ID_Perro'] . "</td>";
             echo "<td>" . $servicio['Fecha'] . "</td>";
             echo "<td>" . $servicio['Incidencias'] . "</td>";
-            echo "<td>" . $servicio['Precio_final'] . " €</td>";
+            echo "<td>" . $servicio['Precio_Final'] . " €</td>";
             echo "<td>" . $servicio['Dni'] . "</td>";
             // echo "<td><a href='./dashboard.php?controller=PerroRecibeSer&action=modal_eliminar'>Eliminar</a></td>";
             echo '<td><form action="./dashboard.php?controller=PerroRecibeSer&action=modal_eliminar" method="POST">
-                    <button class="border-2 border-green-500 hover:bg-green-500 p-2 rounded-sm" name="sr_cod" value='. $servicio['sr_cod'] . '>Insertar</button>
-                    <button class="border-2 border-red-500 hover:bg-red-500 p-2 rounded-sm" name="sr_cod" value='. $servicio['sr_cod'] . '>Eliminar</button>
+                    <button class="border-2 border-red-500 hover:bg-red-500 p-2 rounded-sm" name="sr_cod" value='. $servicio['Sr_Cod'] . '>Eliminar</button>
                 </form></td>';
             // echo '<td><form action="./dashboard.php?controller=PerroRecibeSer&action=modal_eliminar" method="POST">
             //     </form></td>';
