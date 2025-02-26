@@ -1,18 +1,21 @@
 <?php
-require_once ('./../Basedatos.php');
+require_once('./../Basedatos.php');
 
-class Empleado extends Basedatos {
+class Empleado extends Basedatos
+{
 
     private $table;
     private $conexion;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->table = "EMPLEADOS";
         $this->conexion = $this->getConexion();
     }
 
     // B4. Método para insertar un nuevo EMPLEADO
-    public function insertEmpleado($data) {
+    public function insertEmpleado($data)
+    {
         try {
             // Verificar si el DNI ya está registrado
             $sql_check = "SELECT COUNT(*) FROM $this->table WHERE Dni = ?";
@@ -37,7 +40,26 @@ class Empleado extends Basedatos {
             return ["error" => $e->getMessage()];
         }
     }
-    
-}
 
-?>
+
+
+    public function comprobarEmpleado($email, $password)
+    {
+
+        $sql = "SELECT * FROM $this->table WHERE Email = ?";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([$email]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+
+            if (password_verify($password, $result['Password'])) {
+                return true; // La autenticación es correcta
+            } else {
+                return false; // La contraseña no coincide
+            }
+        } else {
+            return false; // El email no existe
+        }
+    }
+}
