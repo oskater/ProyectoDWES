@@ -8,7 +8,7 @@ class PerroRecibeSer extends Basedatos
     public function __construct()
     {
 
-        $this->table = "perro_recibe_ser";
+        $this->table = "perro_recibe_servicio";
         $this->conexion = $this->getConexion();
     }
 
@@ -27,12 +27,12 @@ class PerroRecibeSer extends Basedatos
     }
 
     // Obtener un registro específico por sr_cod
-    public function getUnRegistro($sr_cod)
+    public function getUnRegistro($Sr_cod)
     {
         try {
-            $sql = "SELECT * FROM $this->table WHERE sr_cod=?";
+            $sql = "SELECT * FROM $this->table WHERE Sr_cod=?";
             $sentencia = $this->conexion->prepare($sql);
-            $sentencia->bindParam(1, $sr_cod);
+            $sentencia->bindParam(1, $Sr_cod);
             $sentencia->execute();
             $row = $sentencia->fetch(PDO::FETCH_ASSOC);
             if ($row) {

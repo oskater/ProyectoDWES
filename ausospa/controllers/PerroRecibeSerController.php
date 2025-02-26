@@ -35,9 +35,18 @@ class ServiciosRealizadosController
 
     public function listar()
     {
+        $todosLosEmpleados = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/empleados/index.php"), true);
         $todosLosServicios = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/perro_recibe_ser/index.php"), true);
         // print_r($todosLosServicios);
-        $this->serviciosRealizadosView->listarServiciosRealizados($todosLosServicios);
+        $this->serviciosRealizadosView->listarServiciosRealizados($todosLosServicios, $todosLosEmpleados);
+    }
+    public function listarPorEmpleado()
+    {
+        $Dni = $_POST['Dni'];
+        $todosLosEmpleados = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/empleados/index.php"), true);
+        $todosLosServiciosDeUnEmpleado = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/perro_recibe_ser/index.php?dni=" . $Dni), true);
+        // print_r($todosLosServicios);
+        $this->serviciosRealizadosView->listarServiciosRealizadosPorEmpleado($todosLosServiciosDeUnEmpleado, $todosLosEmpleados, $Dni);
     }
     public function insertar()
     {
