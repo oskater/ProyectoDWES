@@ -7,7 +7,7 @@ class ServiciosRealizadosView
 
         echo "<p class='cabecera'> Todos los servicios realizados </p>";
         echo "<div class='mx-auto'>";
-            echo "<form class='flex gap-4' method='POST' action='./dashboard.php?controller=PerroRecibeSer&action=listarPorEmpleado'>";
+            echo "<form class='flex gap-4 max-w-[400px] mx-auto' method='POST' action='./dashboard.php?controller=PerroRecibeSer&action=listarPorEmpleado'>";
                 echo "<select class='w-[300px] border-2 border-blue-200 focus:outline-blue-500 focus:border-0 px-2 rounded-lg' name='Dni' >";
                     echo "<option selected>Selecciona un empleado</option>";
                     foreach ($empleados as $empleado) {
@@ -19,21 +19,21 @@ class ServiciosRealizadosView
                 echo "<button class='text-white px-4 py-2 bg-blue-200 hover:bg-blue-400 rounded-lg' type='submit'>Enviar</button>";
             echo "</form>";
         echo "</div>";
-        if ($todosLosServicios != []) {
-            echo "<table class='my-16'>";
-            echo "
+        echo "<table class='my-16'>";
+        echo "
         <table class='my-16'>
         <tr>
-            <th>sr_cod</th>
-            <th>cod_servicio</th>
-            <th>ID_Perro</th>
-            <th>Fecha</th>
-            <th>Incidencias</th>
-            <th>Precio_final</th>
-            <th>Dni</th>
-            <th><a class='border-2 border-green-500 hover:bg-green-500 p-2 rounded-lg' href='./dashboard.php?controller=PerroRecibeSer&action=modal_insertar'>Insertar</a></th>
+        <th>sr_cod</th>
+        <th>cod_servicio</th>
+        <th>ID_Perro</th>
+        <th>Fecha</th>
+        <th>Incidencias</th>
+        <th>Precio_final</th>
+        <th>Dni</th>
+        <th><a class='border-2 border-green-500 hover:bg-green-500 p-2 rounded-lg' href='./dashboard.php?controller=PerroRecibeSer&action=modal_insertar'>Insertar</a></th>
         </tr>";
-
+        
+        if (!empty($todosLosServicios)) {
 
             foreach ($todosLosServicios as $servicio) {
                 echo "<tr>";
@@ -55,14 +55,15 @@ class ServiciosRealizadosView
 
             echo "</table>";
         } else {
-            echo "<p class='mensaje_error'>No hay registros</p>";
+            // echo "<script>alert('No se han encontrado registros')</script>";
+            echo "<h2 class='mensaje_error text-center text-red-500 text-xl font-extrabold' text-center>No hay registros</h2>";
         }
     }
     public function listarServiciosRealizadosPorEmpleado($todosLosServiciosDeUnEmpleado, $empleados, $Dni)
     {
         echo "<p class='cabecera'> Servicios realizados por empleado </p>";
         echo "<div class='mx-auto'>";
-        echo "<form class='flex gap-4' method='POST' action='./dashboard.php?controller=PerroRecibeSer&action=listarPorEmpleado'>";
+        echo "<form class='flex gap-4 max-w-[400px] mx-auto' method='POST' action='./dashboard.php?controller=PerroRecibeSer&action=listarPorEmpleado'>";
             echo "<select class='w-[300px] border-2 border-blue-200 focus:outline-blue-500 focus:border-0 px-2 rounded-lg' name='Dni' >";
                 echo "<option value=''>Selecciona un empleado</option>";
                 foreach ($empleados as $empleado) {
@@ -116,7 +117,7 @@ class ServiciosRealizadosView
 
             echo "</table>";
         } else {
-            echo "<p class='mensaje_error'>No hay registros</p>";
+            echo "<h2 class='mensaje_error mt-10 text-center text-red-500 text-xl font-extrabold' text-center>No hay registros</h2>";
         }
     }
 

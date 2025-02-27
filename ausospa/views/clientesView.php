@@ -21,20 +21,22 @@ class ClienteView
             </th>
         </tr>";
 
-        foreach ($clientes as $cliente) {
-            echo "<tr>";
-            echo "<td>" . $cliente['Dni'] . "</td>";
-            echo "<td>" . $cliente['Nombre'] . "</td>";
-            echo "<td>" . $cliente['Apellido1'] . "</td>";
-            echo "<td>" . $cliente['Apellido2'] . "</td>";
-            echo "<td>" . $cliente['Direccion'] . "</td>";
-            echo "<td>" . $cliente['Tlfno'] . "</td>";
-            echo '<td>
-                    <form action="./dashboard.php?controller=Cliente&action=modal_eliminar" method="POST">
-                    <button class="border-2 border-red-500 hover:bg-red-500 p-2 rounded-lg" name="Dni" value=' . $cliente['Dni'] . '>Eliminar</button>
-                    </form>
-                </td>';
-            echo "</tr>";
+        if(!empty($clientes)){
+            foreach ($clientes as $cliente) {
+                echo "<tr>";
+                echo "<td>" . $cliente['Dni'] . "</td>";
+                echo "<td>" . $cliente['Nombre'] . "</td>";
+                echo "<td>" . $cliente['Apellido1'] . "</td>";
+                echo "<td>" . $cliente['Apellido2'] . "</td>";
+                echo "<td>" . $cliente['Direccion'] . "</td>";
+                echo "<td>" . $cliente['Tlfno'] . "</td>";
+                echo '<td>
+                        <form action="./dashboard.php?controller=Cliente&action=modal_eliminar" method="POST">
+                        <button class="border-2 border-red-500 hover:bg-red-500 p-2 rounded-lg" name="Dni" value=' . $cliente['Dni'] . '>Eliminar</button>
+                        </form>
+                    </td>';
+                echo "</tr>";
+            }
         }
 
         echo "</table>";
