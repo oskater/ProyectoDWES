@@ -48,8 +48,11 @@ class Empleado extends Basedatos
             $stmt_check = $this->conexion->prepare($sql_check);
             $stmt_check->execute([$data['dni']]);
             if ($stmt_check->fetchColumn() > 0) {
-                return ["error" => "El Empleado con DNI {$data['dni']} ya está dado de alta"];
+                return ["error" => "El Empleado con DNI {$data['dni']} ya esta dado de alta"];
             }
+
+            $hash=password_hash($data['password'], PASSWORD_BCRYPT);
+            var_dump($hash);
 
             // Insertar el nuevo CLIENTE
             $sql = "INSERT INTO $this->table (Dni, Nombre, Apellido1, Apellido2, Calle, Numero, CP, Poblacion, Provincia, Tlfno, Email, Password, Rol, Profesion)
@@ -68,7 +71,7 @@ class Empleado extends Basedatos
             $stmt->bindParam(":provincia", $data["provincia"], PDO::PARAM_STR);
             $stmt->bindParam(":tlfno", $data["tlfno"], PDO::PARAM_STR);
             $stmt->bindParam(":email", $data["email"], PDO::PARAM_STR);
-            $stmt->bindParam(":password", $data["password"], PDO::PARAM_STR);
+            $stmt->bindParam(":password", $hash, PDO::PARAM_STR);
             $stmt->bindParam(":rol", $data["rol"], PDO::PARAM_STR);
             $stmt->bindParam(":profesion", $data["profesion"], PDO::PARAM_STR);
 
@@ -98,22 +101,18 @@ class Empleado extends Basedatos
 
 
 
-    public function comprobarEmpleado($email, $password)
-    {
-        $sql = "SELECT * FROM $this->table WHERE Email = '$email'";
-        $stmt = $this->conexion->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+public function comprobarEmpleado($email, $password)
+{
+    $sql = "SELECT * FROM $this->table WHERE Email = :email";
+    $stmt = $this->conexion->prepare($sql);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($result) {
-            
-            if ($password == $result['Password']) {
-                return true; // La autenticación es correcta
-            } else {
-                return false; // La contraseña no coincide
-            }
-        } else {
-            return false; // El email no existe
-        }
+    if ($result && password_verify($password, $result['Password'])) {
+        return true; // Autenticación correcta
     }
+    return false; // Email no existe o contraseña incorrecta
+}
+
 }

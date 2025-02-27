@@ -45,7 +45,7 @@ class PerroView
     {
 
         $forminsert =   '<div class="container mt-5">
-  <form class="p-4 rounded-md border-2 border-blue-200 w-full flex flex-col gap-4 m-12" action="dashboard.php?controller=Perro&action=insertar" method="post">';
+  <form class="mx-auto max-w-[600px] p-4 rounded-md border-2 border-blue-200 w-full flex flex-col gap-4 m-12" action="dashboard.php?controller=Perro&action=insertar" method="post">';
 
         $forminsert .=     $this->selectinsert($clientes);
 
@@ -97,6 +97,7 @@ class PerroView
     public function ListarPerroporDni($result, $dnis = null)
     {
         // $this->selectdnis($dnis);
+        echo "<p class='cabecera mb-16'> Todos los Perros existentes </p>";
 
         $list = '
     <table class="my-16">
