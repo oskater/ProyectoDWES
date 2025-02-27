@@ -17,7 +17,7 @@ class ServiciosRealizadosView
             <th>Incidencias</th>
             <th>Precio_final</th>
             <th>Dni</th>
-            <th><button class='border-2 border-green-500 hover:bg-green-500 p-2 rounded-sm' name='sr_cod'>Insertar</button></th>
+            <th><button class='border-2 border-green-500 hover:bg-green-500 p-2 rounded-lg' name='sr_cod'>Insertar</button></th>
         </tr>";
 
         foreach ($todosLosServicios as $servicio) {
@@ -31,7 +31,7 @@ class ServiciosRealizadosView
             echo "<td>" . $servicio['Dni'] . "</td>";
             // echo "<td><a href='./dashboard.php?controller=PerroRecibeSer&action=modal_eliminar'>Eliminar</a></td>";
             echo '<td><form action="./dashboard.php?controller=PerroRecibeSer&action=modal_eliminar" method="POST">
-                    <button class="border-2 border-red-500 hover:bg-red-500 p-2 rounded-sm" name="sr_cod" value='. $servicio['Sr_Cod'] . '>Eliminar</button>
+                    <button class="border-2 border-red-500 hover:bg-red-500 p-2 rounded-lg" name="sr_cod" value='. $servicio['Sr_Cod'] . '>Eliminar</button>
                 </form></td>';
             // echo '<td><form action="./dashboard.php?controller=PerroRecibeSer&action=modal_eliminar" method="POST">
             //     </form></td>';

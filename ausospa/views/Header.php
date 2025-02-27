@@ -26,11 +26,16 @@
             <a href="./dashboard.php?controller=Perro&action=listar" class="hover:text-gray-300">Perros</a>
             <a href="./dashboard.php?controller=Servicio&action=listar" class="hover:text-gray-300">Servicios</a>
             <a href="./dashboard.php?controller=PerroRecibeSer&action=listar" class="hover:text-gray-300">Servicios Realizados</a>
-            <a href="./dashboard.php?controller=Empleado&action=listar" class="hover:text-gray-300">Empleados</a>
+            <?php
+            session_start();
+            if ($_SESSION['rol'] == 'ADMIN') {
+                echo '<a href="./dashboard.php?controller=Empleado&action=listar" class="hover:text-gray-300">Empleados</a>';
+            }
+            ?>
         </nav>
 
         <!-- Botón de inicio de sesión -->
-        <a href="./logout.php" class="bg-white text-blue-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200 transition">
+        <a href="./views/logout.php" class="bg-white text-blue-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200 transition">
             <i class="fa-solid fa-right-from-bracket"></i>
         </a>
     </header>

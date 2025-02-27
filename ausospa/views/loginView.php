@@ -9,7 +9,7 @@
         <div class="w-full md:w-1/2 flex flex-col justify-center items-center p-10">
             <div class="bg-gray-50 p-8 rounded-lg shadow-lg w-full max-w-sm border">
                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Iniciar sesión</h2>
-                <form action="./dashboard.php" method="POST" class="space-y-5">
+                <form action="" method="POST" class="space-y-5">
                     <div class="relative">
                         <label for="email" class="block text-gray-700 font-medium">Correo electrónico</label>
                         <div class="relative">

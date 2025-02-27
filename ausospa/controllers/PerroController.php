@@ -1,99 +1,203 @@
-
 <?php
 require_once __DIR__ . '/../views/perrosView.php';
 
-class PerroController{
-    private $perroView;    
+class PerroController
+{
+    private $perroView;
 
-
-    public function __construct() {
+    public function __construct()
+    {
         $this->perroView = new PerroView();
     }
 
-    public function comprobarAction(){
-        if(isset($_GET['action'])){
+    public function comprobarAction()
+    {
+        $actionContent = ''; // Almacena el resultado de la acción
+
+        if (isset($_GET['action'])) {
             $action = $_GET['action'];
-        
-            switch($action){
+
+            switch ($action) {
                 case 'listar':
-                    $this->listar();
-                break;
+                    $actionContent .=   $this->getAlldni();
+                    $actionContent .=    $this->listar();
+                    break;
                 case 'insertar':
-                    $this->insertar();
-                break;
+                    $actionContent = $this->insertar();
+                    break;
                 case 'eliminar':
-                    $this->eliminar();
-                break;
+                    $actionContent = $this->eliminar();
+                    break;
+                case 'modal_eliminar':
+                    $actionContent = $this->modal_eliminar();
+                    break;
+
+                default:
+                    $this->default();
+                    return;
+            }
+        }
+
+        $this->perroView->setActionContent($actionContent);
+        $this->perroView->default();
+    }
+
+
+
+    public function listar()
+    {
+        $dni =  null;
+        $url = 'http://localhost/ProyectoDWES/aserviciospa/perros/index.php';
+        $options = array(
+            'http' => array(
+
+                'header'  => "Content-type: application/json\r\n",
+                'method'  => 'GET',
+
+            ),
+        );
+
+        $context  = stream_context_create($options);
+        // $result = json_decode(file_get_contents($url, false, $context));
+        $result = json_decode(file_get_contents($url, false, $context), true);
+
+        //http://localhost/ProyectoDWES/aserviciospa/perros/?dnis=true
+        // print_r($result);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['Dni']) && $_POST['Dni']) {
+                $dni =  $_POST['Dni'];
+            }
+        }
+
+        return $this->perroView->ListarPerroporDni($result, $dni);
+    }
+
+    public function insertar()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($_POST['Dni_duenio']  &&  $_POST['Nombre'] && $_POST['Fecha_Nto'] && $_POST['Raza'] && $_POST['peso'] && $_POST['Altura'] && $_POST['Observaciones'] && $_POST['Numero_Chip'] && $_POST['Sexo']) {
+                $Dni_duenio = $_POST['Dni_duenio'];
+
+                $Nombre = $_POST['Nombre'];
+                $Fecha_Nto = $_POST['Fecha_Nto'];
+                $Raza = $_POST['Raza'];
+                $peso = $_POST['peso'];
+                $Observaciones = $_POST['Observaciones'];
+                $Altura = $_POST['Altura'];
+                $Numero_Chip = $_POST['Numero_Chip'];
+                $Sexo = $_POST['Sexo'];
+
+
+                $data = json_encode(array(
+
+
+                    "Dni_duenio" => $Dni_duenio,
+                    "Nombre" => $Nombre,
+                    "Fecha_Nto" => $Fecha_Nto,
+                    "Raza" => $Raza,
+                    "Peso" => $peso,
+                    "Altura" => $Altura,
+                    "Observaciones" => $Observaciones,
+                    "Numero_Chip" => $Numero_Chip,
+                    "Sexo" => $Sexo
+
+                ));
+
+                $url = 'http://localhost/ProyectoDwes/aserviciospa/perros/index.php';
+                $options = array(
+                    'http' => array(
+                        'header'  => "Content-type: application/json\r\n",
+                        'method'  => 'POST',
+                        'content' => $data,
+                    ),
+                );
+
+                $context  = stream_context_create($options);
+                $result = file_get_contents($url, false, $context);
+                print $result;
+            }
+        }
+        $resul =  $this->getdnis();
+
+        return $this->perroView->InsertarPerro($resul);
+    }
+
+    public function eliminar()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['CHIP'])) {
+
+
+                $chip = $_POST['CHIP'];
+                $data = json_encode(array("Numero_Chip" => $chip));
+
+                $url = 'http://localhost/ProyectoDWES/aserviciospa/perros/index.php';
+                $options = array(
+                    'http' => array(
+                        'header'  => "Content-type: application/json\r\n",
+                        'method'  => 'DELETE',
+                        'content' => $data,
+                    ),
+                );
+
+                $context  = stream_context_create($options);
+                $result = file_get_contents($url, false, $context);
+
+
+                //echo $result;
+            }
+        }
+
+        return     $this->listar();
+    }
+
+
+    public function modal_eliminar()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['CHIP'])) {
+                $CHIP = $_POST['CHIP'];
+                $this->perroView->modal_eliminar($CHIP);
             }
         }
     }
 
-    public function listar(){
-        $PerroSelecionado = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/perros/index.php"), true);
-        print_r($PerroSelecionado);
-        $this->perroView->listarPerros();
+
+
+    public function getAlldni()
+    {
+
+        $resul =  $this->getdnis();
+
+        return $this->perroView->selectdnis($resul);
     }
-    public function insertar(){
-        $this->perroView->formInsertarPerro();
+
+
+
+
+    public function getdnis()
+    {
+
+        $url = 'http://localhost/ProyectoDWES/aserviciospa/perros/index.php?dnis=true';
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/json\r\n",
+                'method'  => 'GET',
+
+            ),
+        );
+
+        $context  = stream_context_create($options);
+        // $result = json_decode(file_get_contents($url, false, $context));
+        $result = json_decode(file_get_contents($url, false, $context), true);
+
+
+        return $result;
     }
-    public function eliminar(){
-        $this->perroView->formEliminarPerro();
+
+    public function default()
+    {
+
+        $this->perroView->default();
     }
 }
-?>
-<!-- // class PerroController{
-//     private $model;
-//     private $view;
-
-//     public function __construct()
-//     {
-//         $this->model = new Perro();
-//         $this->view = new PerroView();
-//     }
-
-
-//     //GET Un perro para Por cleinte 
-//     public function getAllPerro($dni_cliente)
-//     {
-//         $PerroSelecionado = json_decode(file_get_contents("http://localhost/USB/SPA_PERROS_PHP/aserviciospa/perros/?dni_cliente=" . $dni_cliente), true);
-//         $this->view->mostrarPerros($PerroSelecionado);
-//     }
-
-
-//     //DELETE PERRO 
-
-
-//     public function DeleteOnePerro($CHIP)
-//     {
-
-//         $PerroSelecionado = curl_init("http://localhost/USB/SPA_PERROS_PHP/aserviciospa/perros/?dni_cliente=" . $CHIP);
-//         curl_setopt($PerroSelecionado, CURLOPT_RETURNTRANSFER, true);
-//         curl_setopt($PerroSelecionado, CURLOPT_CUSTOMREQUEST, 'DELETE');
-//         $response = curl_exec($PerroSelecionado);
-//         curl_close($PerroSelecionado);
-//         $this->view->mostrarmensaje($response);
-//     }
-
-
-
-
-
-//     //POST Perro 
-//     public function InsertOnePerro($Data)
-//     {
-
-//         $PerroSelecionado = curl_init('http://localhost/USB/SPA_PERROS_PHP/aserviciospa/perros/');
-
-
-//         // Configura las opciones de cURL
-//         curl_setopt($PerroSelecionado, CURLOPT_RETURNTRANSFER, true);
-//         curl_setopt($PerroSelecionado, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-//         curl_setopt($PerroSelecionado, CURLOPT_POST, true);
-//         curl_setopt($PerroSelecionado, CURLOPT_POSTFIELDS, json_encode($Data));
-//         $response = curl_exec($PerroSelecionado);
-
-//         curl_close($PerroSelecionado);
-
-//         $this->view->mostrarMensaje($response);
-//     }
-// } -->

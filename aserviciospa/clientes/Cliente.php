@@ -35,8 +35,9 @@ class Cliente extends Basedatos
             $sql_check = "SELECT COUNT(*) FROM $this->table WHERE Dni = ?";
             $stmt_check = $this->conexion->prepare($sql_check);
             $stmt_check->execute([$data['dni']]);
+            
             if ($stmt_check->fetchColumn() > 0) {
-                return ["error" => "El Cliente con DNI {$data['dni']} ya está dado de alta"];
+                return ["error" => "El Cliente con DNI {$data['dni']} ya esta dado de alta"];
             }
 
             // Insertar el nuevo CLIENTE
@@ -75,21 +76,5 @@ class Cliente extends Basedatos
             return "ERROR AL ELIMINAR EL REGISTRO.<br>" . $e->getMessage();
         }
     }
-    //B6. Método para borrar un Cliente
-    // public function deleteCliente($dni)
-    // {
-    //     try {
-    //         $sql = "DELETE FROM $this->table WHERE Dni = ?";
-    //         $stmt = $this->conexion->prepare($sql);
 
-    //         // Mensajes de éxito o error
-    //         if ($stmt->execute([$dni])) {
-    //             return ["success" => "Cliente DNI: $dni eliminado correctamente"];
-    //         } else {
-    //             return ["error" => "Error al eliminar el cliente"];
-    //         }
-    //     } catch (PDOException $e) {
-    //         return ["error" => $e->getMessage()];
-    //     }
-    // }
 }

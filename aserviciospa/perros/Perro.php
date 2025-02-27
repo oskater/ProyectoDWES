@@ -26,7 +26,7 @@ class Perro extends Basedatos
 
     public function __construct()
     {
-        $this->table = "PERROS";
+        $this->table = "Perros";
         $this->conexion = $this->getConexion();
     }
 
@@ -35,6 +35,17 @@ class Perro extends Basedatos
     {
         try {
             $sql = "SELECT * FROM $this->table";
+            $statement = $this->conexion->query($sql);
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return ["error" => $e->getMessage()];
+        }
+    }
+
+    public function getDniofPerros()
+    {
+        try {
+            $sql = "SELECT Dni_duenio FROM $this->table";
             $statement = $this->conexion->query($sql);
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -63,12 +74,12 @@ class Perro extends Basedatos
     {
 
         try {
-            $sql = "INSERT INTO $this->table (DNI_DUENIO, nombre, fecha_nto, raza, peso, altura, observaciones, n_chip, sexo) 
+            $sql = "INSERT INTO $this->table (Dni_duenio, Nombre, fecha_Nto, Raza, Peso, Altura, Observaciones, Numero_Chip, Sexo) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $statement = $this->conexion->prepare($sql);
             return $statement->execute(array_values($info));
         } catch (PDOException $e) {
-            return ["error" => $e->getMessage()];
+            return $e->getMessage();
         }
     }
 
@@ -77,13 +88,29 @@ class Perro extends Basedatos
     public function deletePerro($CHIP)
     {
         try {
-            $sql = "DELETE FROM $this->table WHERE CHIP = ?";
+            $sql = "SELECT * FROM $this->table WHERE Numero_Chip = ?";
             $statement = $this->conexion->prepare($sql);
-            return $statement->execute([$CHIP]);
+            $statement->execute([$CHIP]);
+            $result = $statement->fetch();
+
+
+            if (!$result) {
+                return false;
+            }
+
+            // Si se encuentra el registro, procede con la eliminación
+            $sql = "DELETE FROM $this->table WHERE Numero_Chip = ?";
+            $statement = $this->conexion->prepare($sql);
+            $deleteSuccess = $statement->execute([$CHIP]);
+
+            // Retorna true si la eliminación fue exitosa, o false en caso contrario
+            return true;
         } catch (PDOException $e) {
-            return ["error" => $e->getMessage()];
+            return false;
         }
     }
+
+
 
 
     //GET POR CHIP 
