@@ -41,13 +41,13 @@ class PerroView
     }
 
 
-    public function InsertarPerro($result)
+    public function InsertarPerro($result, $clientes)
     {
 
         $forminsert =   '<div class="container mt-5">
   <form class="p-4 rounded-md border-2 border-blue-200 w-full flex flex-col gap-4 m-12" action="dashboard.php?controller=Perro&action=insertar" method="post">';
 
-        $forminsert .=     $this->selectinsert($result);
+        $forminsert .=     $this->selectinsert($clientes);
 
         $forminsert .=    '
            
@@ -193,14 +193,14 @@ class PerroView
     public function selectinsert($result)
     {
         $select =
-            '<label for="Select">Selecciona un DNI de clientes</label>
-                <select class="form-control" id="Select" name="Dni_duenio">
+            '<label class="bg-blue-200 p-2 rounded-md" for="Select" for="Select">Selecciona un DNI de clientes</label>
+                <select class="w-ful max-w-[60%] border-2 border-blue-200 focus:outline-blue-500 focus:border-0 px-2 rounded-lg" id="Select" name="Dni_duenio">
         
-                <option value="">Selecciona una opción</option>';
+                <option value="">DNI</option>';
 
         // Agregar las opciones del array $result
         foreach ($result as $key => $value) {
-            $select .= '<option value="' . htmlspecialchars($value['Dni_duenio']) . '">' . htmlspecialchars($value['Dni_duenio']) . '</option>';
+            $select .= '<option value="' . htmlspecialchars($value['Dni']) . '">' . htmlspecialchars($value['Dni']) . '</option>';
         }
 
         // Finalizar el formulario

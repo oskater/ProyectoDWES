@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(empty($_SESSION['rol'])) 
+{ 
+    header('Location: ./index.php'); 
+}
+
 include_once(__DIR__ . '/views/Header.php');
 ?>
 

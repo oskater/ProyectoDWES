@@ -27,7 +27,6 @@
             <a href="./dashboard.php?controller=Servicio&action=listar" class="hover:text-gray-300">Servicios</a>
             <a href="./dashboard.php?controller=PerroRecibeSer&action=listar" class="hover:text-gray-300">Servicios Realizados</a>
             <?php
-            session_start();
             if ($_SESSION['rol'] == 'ADMIN') {
                 echo '<a href="./dashboard.php?controller=Empleado&action=listar" class="hover:text-gray-300">Empleados</a>';
             }

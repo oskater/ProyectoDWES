@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../views/perrosView.php';
+require_once(__DIR__.'/../views/perrosView.php');
 
 class PerroController
 {
@@ -12,7 +12,7 @@ class PerroController
 
     public function comprobarAction()
     {
-        $actionContent = ''; // Almacena el resultado de la acción
+        $actionContent = ''; // Almacena el resultado de la acción
 
         if (isset($_GET['action'])) {
             $action = $_GET['action'];
@@ -46,8 +46,9 @@ class PerroController
 
     public function listar()
     {
+        $this->getAlldni();
         $dni =  null;
-        $url = 'http://localhost/ProyectoDWES/aserviciospa/perros/index.php';
+        $url = 'http://localhost/ProyectoDWES/aserviciospa/perros/';
         $options = array(
             'http' => array(
 
@@ -103,7 +104,7 @@ class PerroController
 
                 ));
 
-                $url = 'http://localhost/ProyectoDwes/aserviciospa/perros/index.php';
+                $url = 'http://localhost/ProyectoDwes/aserviciospa/perros/';
                 $options = array(
                     'http' => array(
                         'header'  => "Content-type: application/json\r\n",
@@ -118,8 +119,9 @@ class PerroController
             }
         }
         $resul =  $this->getdnis();
+        $clintes =  $this->getdnisclienets();
 
-        return $this->perroView->InsertarPerro($resul);
+        return $this->perroView->InsertarPerro($resul, $clintes);
     }
 
     public function eliminar()
@@ -131,7 +133,7 @@ class PerroController
                 $chip = $_POST['CHIP'];
                 $data = json_encode(array("Numero_Chip" => $chip));
 
-                $url = 'http://localhost/ProyectoDWES/aserviciospa/perros/index.php';
+                $url = 'http://localhost/ProyectoDWES/aserviciospa/perros/';
                 $options = array(
                     'http' => array(
                         'header'  => "Content-type: application/json\r\n",
@@ -178,7 +180,28 @@ class PerroController
     public function getdnis()
     {
 
-        $url = 'http://localhost/ProyectoDWES/aserviciospa/perros/index.php?dnis=true';
+        $url = 'http://localhost/ProyectoDWES/aserviciospa/perros/?dnis=true';
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/json\r\n",
+                'method'  => 'GET',
+
+            ),
+        );
+
+        $context  = stream_context_create($options);
+        // $result = json_decode(file_get_contents($url, false, $context));
+        $result = json_decode(file_get_contents($url, false, $context), true);
+
+
+        return $result;
+    }
+
+
+    public function  getdnisclienets()
+    {
+
+        $url = 'http://localhost/ProyectoDWES/aserviciospa/clientes/';
         $options = array(
             'http' => array(
                 'header'  => "Content-type: application/json\r\n",
@@ -197,7 +220,6 @@ class PerroController
 
     public function default()
     {
-
         $this->perroView->default();
     }
-}
+}   
