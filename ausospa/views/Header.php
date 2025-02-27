@@ -25,7 +25,14 @@
             <a href="./dashboard.php?controller=Cliente&action=listar" class="hover:text-gray-300">Clientes</a>
             <a href="./dashboard.php?controller=Perro&action=listar" class="hover:text-gray-300">Perros</a>
             <a href="./dashboard.php?controller=Servicio&action=listar" class="hover:text-gray-300">Servicios</a>
-            <a href="./dashboard.php?controller=PerroRecibeSer&action=listar" class="hover:text-gray-300">Servicios Realizados</a>
+            <?php
+            if($_SESSION['user']['Rol'] == 'ADMIN'){
+                echo '<a href="./dashboard.php?controller=PerroRecibeSer&action=listar" class="hover:text-gray-300">Servicios Realizados</a>';
+            }else {
+                echo '<a href="./dashboard.php?controller=PerroRecibeSer&action=listarPorEmpleado" class="hover:text-gray-300">Servicios Realizados</a>';
+            }
+            ?>
+            
             <?php
             if ($_SESSION['rol'] == 'ADMIN') {
                 echo '<a href="./dashboard.php?controller=Empleado&action=listar" class="hover:text-gray-300">Empleados</a>';

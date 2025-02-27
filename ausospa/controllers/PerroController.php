@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../views/perrosView.php');
+require_once(__DIR__ . '/../views/perrosView.php');
 
 class PerroController
 {
@@ -169,7 +169,7 @@ class PerroController
     public function getAlldni()
     {
 
-        $resul =  $this->getdnis();
+        $resul =  $this->getdnisclienets();
 
         return $this->perroView->selectdnis($resul);
     }
@@ -222,4 +222,4 @@ class PerroController
     {
         $this->perroView->default();
     }
-}   
+}

@@ -7,8 +7,6 @@ class ServiciosRealizadosController
     private $serviciosRealizadosView;
 
 
-
-
     public function __construct()
     {
         $this->serviciosRealizadosView = new ServiciosRealizadosView();
@@ -53,8 +51,16 @@ class ServiciosRealizadosController
     }
     public function listarPorEmpleado()
     {
-        $Dni = $_POST['Dni'];
+        $Dni = "";
+
+        if($_SESSION['user']['Rol'] == 'ADMIN'){
+            $Dni = $_POST['Dni'];
+        }else {
+            $Dni = $_SESSION['user']['Dni'];
+        }
+
         $todosLosEmpleados = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/empleados/index.php"), true);
+        
         if ($Dni != "") {
             $todosLosServiciosDeUnEmpleado = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/perro_recibe_ser/index.php?dni=" . $Dni), true);
             $this->serviciosRealizadosView->listarServiciosRealizadosPorEmpleado($todosLosServiciosDeUnEmpleado, $todosLosEmpleados, $Dni);

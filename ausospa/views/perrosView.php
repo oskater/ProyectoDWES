@@ -45,7 +45,7 @@ class PerroView
     {
 
         $forminsert =   '<div class="container mt-5">
-  <form class="mx-auto max-w-[600px] p-4 rounded-md border-2 border-blue-200 w-full flex flex-col gap-4 m-12" action="dashboard.php?controller=Perro&action=insertar" method="post">';
+  <form class="p-4 rounded-md border-2 border-blue-200 w-full flex flex-col gap-4 m-12" action="dashboard.php?controller=Perro&action=insertar" method="post">';
 
         $forminsert .=     $this->selectinsert($clientes);
 
@@ -97,7 +97,6 @@ class PerroView
     public function ListarPerroporDni($result, $dnis = null)
     {
         // $this->selectdnis($dnis);
-        echo "<p class='cabecera mb-16'> Todos los Perros existentes </p>";
 
         $list = '
     <table class="my-16">
@@ -177,12 +176,12 @@ class PerroView
             <label class="bg-blue-200 p-2 rounded-md" for="Select">Filtra mediante el DNI del cliente:</label>
             <select class="bg-blue-200 p-2 rounded-md" class="form-control" id="Select" name="Dni">
                 <option value="">Selecciona una opción</option>';
-                // Agregar las opciones del array $result
-                foreach ($result as $key => $value) {
-                    $select .= '<option value="' . htmlspecialchars($value['Dni_duenio']) . '">' . htmlspecialchars($value['Dni_duenio']) . '</option>';
-                }
-            // Finalizar el formulario
-            $select .= '
+        // Agregar las opciones del array $result
+        foreach ($result as $key => $value) {
+            $select .= '<option value="' . htmlspecialchars($value['Dni']) . '">' . htmlspecialchars($value['Dni']) . '</option>';
+        }
+        // Finalizar el formulario
+        $select .= '
                 </select>
                 </div>
             <button class="bg-blue-200 hover:bg-blue-400 p-2 rounded-md" type="submit" class="btn btn-primary col-12">Filtrar</button>
