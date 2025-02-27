@@ -20,8 +20,9 @@ class LoginController {
 
     public function takeRol(){
             $email = $_POST['email'];
-            $rol = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/empleados/index.php?email=$email"), true);
+            $user = json_decode(file_get_contents("http://localhost/ProyectoDWES/aserviciospa/empleados/index.php?email=$email"), true);
             session_start();
-            $_SESSION['rol'] = $rol;
+            $_SESSION['user']=$user;
+            $_SESSION['rol'] = $user['Rol'];
     }
 }

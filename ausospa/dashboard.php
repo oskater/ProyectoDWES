@@ -6,6 +6,7 @@ if(empty($_SESSION['rol']))
 }
 
 include_once(__DIR__ . '/views/Header.php');
+// print_r($_SESSION['user']);
 ?>
 
 <!-- Article Clientes -->

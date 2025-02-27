@@ -31,9 +31,9 @@ class Empleado extends Basedatos
         try {
             $sql = "SELECT * FROM $this->table WHERE Email = '$email'";
             $statement = $this->conexion->query($sql);
-            $registros = $statement->fetch(PDO::FETCH_ASSOC);
+            $registro = $statement->fetch(PDO::FETCH_ASSOC);
             $statement = null;
-            return $registros['Rol'] ?: [];
+            return $registro ?: [];
         } catch (PDOException $e) {
             return "ERROR AL CARGAR.<br>" . $e->getMessage();
         }

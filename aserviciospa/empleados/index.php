@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['email']) && isset($_GET[
     $res = $empleado->comprobarEmpleado($_GET['email'], $_GET['password']); // Orden corregido
     echo json_encode($res);
     exit();
-} else if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['email']) && !isset($_GET['password'])){
+} else if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['email'])){
     $res = $empleado->getRol($_GET['email']);
     echo json_encode($res);
     exit;
